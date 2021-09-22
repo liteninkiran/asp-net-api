@@ -20,24 +20,52 @@ namespace QuotesApi.Controllers
         }
 
         // GET: api/Quotes/5
-        public string Get(int id)
+        public Quote Get(int id)
         {
-            return "value";
+            return quotesDbContext.Quotes.Find(id);
         }
 
         // POST: api/Quotes
-        public void Post([FromBody]string value)
+        public Quote Post([FromBody]Quote quote)
         {
+            var newQuote = quotesDbContext.Quotes.Add(quote);
+            quotesDbContext.SaveChanges();
+            return newQuote;
         }
 
         // PUT: api/Quotes/5
-        public void Put(int id, [FromBody]string value)
+        public Quote Put(int id, [FromBody]Quote quote)
         {
+            var updateQuote = quotesDbContext.Quotes.FirstOrDefault(q => q.id == id);
+
+            if (updateQuote == null)
+            {
+                return null;
+            }
+
+            updateQuote.title = quote.title;
+            updateQuote.author = quote.author;
+            updateQuote.description = quote.description;
+
+            quotesDbContext.SaveChanges();
+
+            return updateQuote;
         }
 
         // DELETE: api/Quotes/5
-        public void Delete(int id)
+        public string Delete(int id)
         {
+            var quote = quotesDbContext.Quotes.Find(id);
+
+            if (quote == null)
+            {
+                return "Quote not found";
+            }
+
+            quotesDbContext.Quotes.Remove(quote);
+            quotesDbContext.SaveChanges();
+
+            return "Quote successfully deleted";
         }
     }
 }
