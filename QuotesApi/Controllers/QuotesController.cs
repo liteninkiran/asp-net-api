@@ -14,33 +14,41 @@ namespace QuotesApi.Controllers
         QuotesDbContext quotesDbContext = new QuotesDbContext();
 
         // GET: api/Quotes
-        public IEnumerable<Quote> Get()
+        public IHttpActionResult Get()
         {
-            return quotesDbContext.Quotes;
+            var quotes = quotesDbContext.Quotes;
+            return Ok(quotes);
         }
 
         // GET: api/Quotes/5
-        public Quote Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return quotesDbContext.Quotes.Find(id);
+            var quote = quotesDbContext.Quotes.Find(id);
+
+            if (quote == null)
+            {
+                return BadRequest("Record not found");
+            }
+
+            return Ok(quote);
         }
 
         // POST: api/Quotes
-        public Quote Post([FromBody]Quote quote)
+        public IHttpActionResult Post([FromBody]Quote quote)
         {
             var newQuote = quotesDbContext.Quotes.Add(quote);
             quotesDbContext.SaveChanges();
-            return newQuote;
+            return StatusCode(HttpStatusCode.Created);
         }
 
         // PUT: api/Quotes/5
-        public Quote Put(int id, [FromBody]Quote quote)
+        public IHttpActionResult Put(int id, [FromBody]Quote quote)
         {
             var updateQuote = quotesDbContext.Quotes.FirstOrDefault(q => q.id == id);
 
             if (updateQuote == null)
             {
-                return null;
+                return BadRequest("Record not found");
             }
 
             updateQuote.title = quote.title;
@@ -49,23 +57,23 @@ namespace QuotesApi.Controllers
 
             quotesDbContext.SaveChanges();
 
-            return updateQuote;
+            return Ok(updateQuote);
         }
 
         // DELETE: api/Quotes/5
-        public string Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             var quote = quotesDbContext.Quotes.Find(id);
 
             if (quote == null)
             {
-                return "Quote not found";
+                return BadRequest("Record not found");
             }
 
             quotesDbContext.Quotes.Remove(quote);
             quotesDbContext.SaveChanges();
 
-            return "Quote successfully deleted";
+            return Ok("Record deleted successfully");
         }
     }
 }
