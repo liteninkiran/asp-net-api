@@ -36,6 +36,11 @@ namespace QuotesApi.Controllers
         // POST: api/Quotes
         public IHttpActionResult Post([FromBody]Quote quote)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var newQuote = quotesDbContext.Quotes.Add(quote);
             quotesDbContext.SaveChanges();
             return StatusCode(HttpStatusCode.Created);
@@ -44,6 +49,11 @@ namespace QuotesApi.Controllers
         // PUT: api/Quotes/5
         public IHttpActionResult Put(int id, [FromBody]Quote quote)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var updateQuote = quotesDbContext.Quotes.FirstOrDefault(q => q.id == id);
 
             if (updateQuote == null)
