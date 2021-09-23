@@ -15,10 +15,25 @@ namespace QuotesApi.Controllers
 
         // GET: api/Quotes
         [HttpGet]
-        public IHttpActionResult LoadQuotes()
+        public IHttpActionResult LoadQuotes(string sort)
         {
-            var quotes = quotesDbContext.Quotes;
+            IQueryable<Quote> quotes;
+
+            switch (sort)
+            {
+                case "desc" : quotes = quotesDbContext.Quotes.OrderByDescending(q => q.created_at); break;
+                case "asc"  : quotes = quotesDbContext.Quotes.OrderBy(q => q.created_at); break;
+                default     : quotes = quotesDbContext.Quotes; break;
+            }
             return Ok(quotes);
+        }
+
+
+        [HttpGet]
+        [Route("api/Quotes/test/{id}")]
+        public int test(int id)
+        {
+            return id;
         }
 
         // GET: api/Quotes/5
