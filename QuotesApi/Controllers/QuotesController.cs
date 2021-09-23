@@ -14,14 +14,16 @@ namespace QuotesApi.Controllers
         QuotesDbContext quotesDbContext = new QuotesDbContext();
 
         // GET: api/Quotes
-        public IHttpActionResult Get()
+        [HttpGet]
+        public IHttpActionResult LoadQuotes()
         {
             var quotes = quotesDbContext.Quotes;
             return Ok(quotes);
         }
 
         // GET: api/Quotes/5
-        public IHttpActionResult Get(int id)
+        [HttpGet]
+        public IHttpActionResult LoadQuote(int id)
         {
             var quote = quotesDbContext.Quotes.Find(id);
 
@@ -34,6 +36,7 @@ namespace QuotesApi.Controllers
         }
 
         // POST: api/Quotes
+        [HttpPost]
         public IHttpActionResult Post([FromBody]Quote quote)
         {
             if (!ModelState.IsValid)
@@ -47,6 +50,7 @@ namespace QuotesApi.Controllers
         }
 
         // PUT: api/Quotes/5
+        [HttpPut]
         public IHttpActionResult Put(int id, [FromBody]Quote quote)
         {
             if (!ModelState.IsValid)
@@ -71,6 +75,8 @@ namespace QuotesApi.Controllers
         }
 
         // DELETE: api/Quotes/5
+        [HttpDelete]
+
         public IHttpActionResult Delete(int id)
         {
             var quote = quotesDbContext.Quotes.Find(id);
