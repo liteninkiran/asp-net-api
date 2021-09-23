@@ -97,6 +97,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109212330412_InitialCreate.cs" />
+    <Compile Include="Migrations\202109212330412_InitialCreate.designer.cs">
+      <DependentUpon>202109212330412_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109231541340_QuoteTypeAdded.cs" />
+    <Compile Include="Migrations\202109231541340_QuoteTypeAdded.designer.cs">
+      <DependentUpon>202109231541340_QuoteTypeAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109231545577_QuoteCreatedAtAdded.cs" />
+    <Compile Include="Migrations\202109231545577_QuoteCreatedAtAdded.designer.cs">
+      <DependentUpon>202109231545577_QuoteCreatedAtAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -111,6 +124,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202109212330412_InitialCreate.resx">
+      <DependentUpon>202109212330412_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109231541340_QuoteTypeAdded.resx">
+      <DependentUpon>202109231541340_QuoteTypeAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109231545577_QuoteCreatedAtAdded.resx">
+      <DependentUpon>202109231545577_QuoteCreatedAtAdded.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
